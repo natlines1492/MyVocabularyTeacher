@@ -11,5 +11,3 @@ class DictionaryService
     JSON.parse(definitions.body, symbolize_names: true) if definitions.body
   end
 end
-
-

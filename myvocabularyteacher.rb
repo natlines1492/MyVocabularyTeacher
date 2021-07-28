@@ -26,7 +26,6 @@ class Vocabulary
   end
 
   def search
-
     # pp variable = DictionaryService.words("en_US", "Hello")
     # word = variable[0]
     # puts "-----------------"exit
