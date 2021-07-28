@@ -2,12 +2,14 @@ require_relative './helpers/presenter'
 require_relative './helpers/requester'
 
 class Vocabulary
+  include Presenter
+
   def initialize
     @vocabulary_list = ''
   end
 
   def start
-    puts "This is the Vocabulary Teacher App"
+    puts welcome
   end
 end
 
