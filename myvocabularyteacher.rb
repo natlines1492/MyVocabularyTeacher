@@ -35,13 +35,13 @@ class Vocabulary
     meanings = variable[0][:meanings]
 
     definition_word = meanings.map do |part_of_speech|
-      { 
-        :uses => part_of_speech[:partOfSpeech], 
-        :definitions => part_of_speech[:definitions].map do |definitions|
-          { 
-            :definition => definitions[:definition],
-            :example => definitions[:example]
-          } 
+      {
+        uses: part_of_speech[:partOfSpeech],
+        definitions: part_of_speech[:definitions].map do |definitions|
+          {
+            definition: definitions[:definition],
+            example: definitions[:example]
+          }
         end
       }
     end
@@ -55,13 +55,13 @@ class Vocabulary
     meanings = variable[0][:meanings]
 
     definition_word = meanings.map do |part_of_speech|
-      { 
-        :uses => part_of_speech[:partOfSpeech], 
-        :definitions => part_of_speech[:definitions].map do |definitions|
-          { 
-            :definition => definitions[:definition],
-            :example => definitions[:example]
-          } 
+      {
+        uses: part_of_speech[:partOfSpeech],
+        definitions: part_of_speech[:definitions].map do |definitions|
+          {
+            definition: definitions[:definition],
+            example: definitions[:example]
+          }
         end
       }
     end
@@ -69,7 +69,6 @@ class Vocabulary
     @definition_word = definition_word
     pp definition_word
   end
-
 end
 
 input_array = ARGV
