@@ -1,7 +1,6 @@
 require_relative "./helpers/presenter"
 require_relative "./helpers/requester"
 
-
 class Vocabulary
   include Presenter
   include Requester
@@ -12,7 +11,6 @@ class Vocabulary
     input_array = ARGV
     puts "word : #{input_array[0]}"
     puts "language: #{input_array[1]}"
-
   end
 
   def start
