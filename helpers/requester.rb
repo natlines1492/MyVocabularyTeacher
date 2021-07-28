@@ -3,6 +3,6 @@ module Requester
     options = %w[search add practice toggle exit]
     puts options.join(" | ")
     print "> "
-    gets.chomp
+    $stdin.gets.chomp
   end
 end
