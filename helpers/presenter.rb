@@ -1,10 +1,10 @@
-require 'terminal-table'
+require "terminal-table"
 
 module Presenter
   def welcome
     [
       "#" * 36,
-      "# " + "Welcome to My Vocabulary Teacher" + " #",
+      "# Welcome to My Vocabulary Teacher #",
       "#" * 36
     ]
   end

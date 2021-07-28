@@ -1,12 +1,12 @@
-require_relative './helpers/presenter'
-require_relative './helpers/requester'
+require_relative "./helpers/presenter"
+require_relative "./helpers/requester"
 
 class Vocabulary
   include Presenter
   include Requester
 
   def initialize
-    @vocabulary_list = ''
+    @vocabulary_list = ""
   end
 
   def start
