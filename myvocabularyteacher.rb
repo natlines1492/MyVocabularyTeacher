@@ -15,6 +15,7 @@ class Vocabulary
   def start
     puts welcome
     puts "language: #{@current_language}"
+    start_search(@current_language, @search_word)
     option = main_menu
     until option == "exit"
       case option
@@ -30,10 +31,10 @@ class Vocabulary
 
   def search
     word = input_user
-    variable = DictionaryService.words("en_US", word) # "en_US" = language
+    variable = DictionaryService.words(@current_language, word) # "en_US" = language
     meanings = variable[0][:meanings]
 
-    def_uses = meanings.map do |part_of_speech|
+    definition_word = meanings.map do |part_of_speech|
       { 
         :uses => part_of_speech[:partOfSpeech], 
         :definitions => part_of_speech[:definitions].map do |definitions|
@@ -45,8 +46,30 @@ class Vocabulary
       }
     end
 
-    @def_uses = def_uses
+    @definition_word = definition_word
+    pp definition_word
   end
+
+  def start_search(language, word)
+    variable = DictionaryService.words(language, word) # "en_US" = language
+    meanings = variable[0][:meanings]
+
+    definition_word = meanings.map do |part_of_speech|
+      { 
+        :uses => part_of_speech[:partOfSpeech], 
+        :definitions => part_of_speech[:definitions].map do |definitions|
+          { 
+            :definition => definitions[:definition],
+            :example => definitions[:example]
+          } 
+        end
+      }
+    end
+
+    @definition_word = definition_word
+    pp definition_word
+  end
+
 end
 
 input_array = ARGV

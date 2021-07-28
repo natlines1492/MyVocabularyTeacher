@@ -9,6 +9,6 @@ module Requester
   def input_user
     puts "Word: "
     print "> "
-    gets.chomp.strip
+    $stdin.gets.chomp.strip
   end
 end
