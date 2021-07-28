@@ -6,17 +6,15 @@ class Vocabulary
   include Presenter
   include Requester
 
-  def initialize
+  def initialize(word, language = "en-US")
     @vocabulary_list = ""
-    @current_language = ""
-    input_array = ARGV
-    puts "word : #{input_array[0]}"
-    puts "language: #{input_array[1]}"
-    puts "last option: #{input_array[-1]}"
+    @current_language = language
+    @search_word = word
   end
 
   def start
     puts welcome
+    puts "language: #{@current_language}"
     option = main_menu
     until option == "exit"
       case option
@@ -42,5 +40,16 @@ class Vocabulary
   end
 end
 
-vocabulary = Vocabulary.new
+input_array = ARGV
+word = input_array.first
+language = nil
+language = input_array[-1] if input_array.length > 1
+# puts "language: #{language}"
+# puts "word : #{word}"
+
+if language.nil?
+  vocabulary = Vocabulary.new(word)
+else
+  vocabulary = Vocabulary.new(word, language) unless language.nil?
+end
 vocabulary.start
