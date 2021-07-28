@@ -11,6 +11,7 @@ class Vocabulary
     input_array = ARGV
     puts "word : #{input_array[0]}"
     puts "language: #{input_array[1]}"
+    puts "last option: #{input_array[-1]}"
   end
 
   def start
