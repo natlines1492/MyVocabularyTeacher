@@ -3,6 +3,7 @@ require_relative './helpers/requester'
 
 class Vocabulary
   include Presenter
+  include Requester
 
   def initialize
     @vocabulary_list = ''
@@ -10,6 +11,17 @@ class Vocabulary
 
   def start
     puts welcome
+    option = main_menu
+    until option == "exit"
+      case option
+      when "search" then puts "search option"
+      when "add" then puts "add option"
+      when "practice" then puts "practice option"
+      when "toggle" then puts "toggle option"
+      when "exit" then puts "exit option"
+      end
+      option = main_menu
+    end
   end
 end
 

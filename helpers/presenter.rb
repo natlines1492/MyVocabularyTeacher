@@ -1,3 +1,5 @@
+require 'terminal-table'
+
 module Presenter
   def welcome
     [
