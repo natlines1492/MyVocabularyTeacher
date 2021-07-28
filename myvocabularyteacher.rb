@@ -6,12 +6,16 @@ class Vocabulary
   include Presenter
   include Requester
 
-  def initialize
+  def initialize(word, language = "en-US")
     @vocabulary_list = ""
+    @current_language = language
+    @search_word = word
   end
 
   def start
     puts welcome
+    puts "language: #{@current_language}"
+    start_search(@current_language, @search_word)
     option = main_menu
     until option == "exit"
       case option
@@ -26,16 +30,57 @@ class Vocabulary
   end
 
   def search
-    # pp variable = DictionaryService.words("en_US", "Hello")
-    # word = variable[0]
-    # puts "-----------------"exit
-    # pp word[:word]
-    # puts "-----------------"
-    # meaning =  word[:meanings][0][:definitions][0][:definition]
-    # puts "-----------------"
-    # pp meaning[:definitions][0][:definition]
+    word = input_user
+    variable = DictionaryService.words(@current_language, word) # "en_US" = language
+    meanings = variable[0][:meanings]
+
+    definition_word = meanings.map do |part_of_speech|
+      {
+        uses: part_of_speech[:partOfSpeech],
+        definitions: part_of_speech[:definitions].map do |definitions|
+          {
+            definition: definitions[:definition],
+            example: definitions[:example]
+          }
+        end
+      }
+    end
+
+    @definition_word = definition_word
+    pp definition_word
+  end
+
+  def start_search(language, word)
+    variable = DictionaryService.words(language, word) # "en_US" = language
+    meanings = variable[0][:meanings]
+
+    definition_word = meanings.map do |part_of_speech|
+      {
+        uses: part_of_speech[:partOfSpeech],
+        definitions: part_of_speech[:definitions].map do |definitions|
+          {
+            definition: definitions[:definition],
+            example: definitions[:example]
+          }
+        end
+      }
+    end
+
+    @definition_word = definition_word
+    pp definition_word
   end
 end
 
-vocabulary = Vocabulary.new
+input_array = ARGV
+word = input_array.first
+language = nil
+language = input_array[-1] if input_array.length > 1
+# puts "language: #{language}"
+# puts "word : #{word}"
+
+if language.nil?
+  vocabulary = Vocabulary.new(word)
+else
+  vocabulary = Vocabulary.new(word, language) unless language.nil?
+end
 vocabulary.start
