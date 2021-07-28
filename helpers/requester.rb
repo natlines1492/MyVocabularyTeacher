@@ -5,4 +5,10 @@ module Requester
     print "> "
     gets.chomp
   end
+
+  def input_user
+    puts "Word: "
+    print "> "
+    gets.chomp.strip
+  end
 end

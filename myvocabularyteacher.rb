@@ -26,14 +26,23 @@ class Vocabulary
   end
 
   def search
-    # pp variable = DictionaryService.words("en_US", "Hello")
-    # word = variable[0]
-    # puts "-----------------"exit
-    # pp word[:word]
-    # puts "-----------------"
-    # meaning =  word[:meanings][0][:definitions][0][:definition]
-    # puts "-----------------"
-    # pp meaning[:definitions][0][:definition]
+    word = input_user
+    variable = DictionaryService.words("en_US", word) # "en_US" = language
+    meanings = variable[0][:meanings]
+
+    def_uses = meanings.map do |part_of_speech|
+      { 
+        :uses => part_of_speech[:partOfSpeech], 
+        :definitions => part_of_speech[:definitions].map do |definitions|
+          { 
+            :definition => definitions[:definition],
+            :example => definitions[:example]
+          } 
+        end
+      }
+    end
+
+    @def_uses = def_uses
   end
 end
 
