@@ -18,7 +18,7 @@ module Handler
     end
 
     word_in_array = format_rows(word_data)
-    print_definition(word_in_array)
+    print_definition(word_data[:word], word_in_array)
     @vocabulary_list << word_data
   end
 
