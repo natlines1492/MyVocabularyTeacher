@@ -3,6 +3,7 @@ AllCops:
   SuggestExtensions: false
   Exclude:
     - "*/*_test.rb"
+    - "_test.*"
 
 Style/StringLiterals:
   Description: "Checks if uses of quotes match the configured preference."

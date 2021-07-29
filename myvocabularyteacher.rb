@@ -1,8 +1,10 @@
+require_relative "./handlers/handler"
 require_relative "./helpers/presenter"
 require_relative "./helpers/requester"
 require_relative "./services/dictionary"
 
 class Vocabulary
+  include Handler
   include Presenter
   include Requester
 
@@ -25,62 +27,31 @@ class Vocabulary
   def start
     puts welcome
     puts "language: #{@current_language}"
-    start_search(@current_language, @search_words) unless @search_words.empty?
+    start_search(@search_words) unless @search_words.empty?
     option = main_menu
     until option == "exit"
       case option
       when "search" then search
       when "add" then puts "add option"
       when "practice" then puts "practice option"
-      when "toggle" then toggle 
+      when "toggle" then toggle
       when "exit" then puts "exit option"
       end
       puts "language: #{@current_language}"
       option = main_menu
     end
+    puts goodbye
   end
 
   def search
     word = input_user
-    variable = DictionaryService.words(@current_language, word) # "en_US" = language
-    meanings = variable[0][:meanings]
-
-    definition_word = meanings.map do |part_of_speech|
-      {
-        uses: part_of_speech[:partOfSpeech],
-        definitions: part_of_speech[:definitions].map do |definitions|
-          {
-            definition: definitions[:definition],
-            example: definitions[:example]
-          }
-        end
-      }
-    end
-
-    @vocabulary_list << { word.to_sym => definition_word }
-    pp @vocabulary_list
+    vocab_word(word)
   end
 
-  def start_search(language, words)
+  def start_search(words)
     words.each do |word|
-      variable = DictionaryService.words(language, word) # "en_US" = language
-      meanings = variable[0][:meanings]
-
-      definition_word = meanings.map do |part_of_speech|
-        {
-          uses: part_of_speech[:partOfSpeech],
-          definitions: part_of_speech[:definitions].map do |definitions|
-            {
-              definition: definitions[:definition],
-              example: definitions[:example]
-            }
-          end
-        }
-      end
-
-      @vocabulary_list << { word.to_sym => definition_word }
+      vocab_word(word)
     end
-    pp @vocabulary_list
   end
 
   def toggle
