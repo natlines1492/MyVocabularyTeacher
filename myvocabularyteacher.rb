@@ -1,4 +1,5 @@
 require_relative "./handlers/handler"
+require_relative "./handlers/words"
 require_relative "./helpers/presenter"
 require_relative "./helpers/requester"
 require_relative "./services/dictionary"
@@ -7,6 +8,7 @@ class Vocabulary
   include Handler
   include Presenter
   include Requester
+  include Handler::Words
 
   def initialize
     @current_language = "en_US"
