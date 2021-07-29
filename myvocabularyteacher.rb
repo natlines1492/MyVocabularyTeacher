@@ -12,6 +12,7 @@ class Vocabulary
     @current_language = "en_US"
     @search_words = []
     @vocabulary_list = []
+    @new_vocabulary_words = []
 
     unless ARGV.empty?
       if ARGV[-1].match?(/english|spanish/i)
@@ -35,7 +36,6 @@ class Vocabulary
       when "add" then puts "add option"
       when "practice" then puts "practice option"
       when "toggle" then toggle
-      when "exit" then puts "exit option"
       end
       puts "language: #{@current_language}"
       option = main_menu
@@ -45,12 +45,12 @@ class Vocabulary
 
   def search
     word = input_user
-    vocab_word(word)
+    vocabulary_word(word)
   end
 
   def start_search(words)
     words.each do |word|
-      vocab_word(word)
+      vocabulary_word(word)
     end
   end
 
