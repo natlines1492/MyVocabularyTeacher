@@ -6,10 +6,11 @@ class Vocabulary
   include Presenter
   include Requester
 
-  def initialize(word, language = "en-US")
+  def initialize(word, language = "en_US")
     @vocabulary_list = ""
     @current_language = language
     @search_word = word
+    @definition_word = nil
   end
 
   def start
