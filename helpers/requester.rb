@@ -5,4 +5,10 @@ module Requester
     print "> "
     $stdin.gets.chomp
   end
+
+  def input_user
+    puts "Word: "
+    print "> "
+    $stdin.gets.chomp.strip
+  end
 end
