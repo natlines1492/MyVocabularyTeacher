@@ -1,4 +1,5 @@
 require_relative "./handlers/handler"
+require_relative "./handlers/words"
 require_relative "./helpers/presenter"
 require_relative "./helpers/requester"
 require_relative "./services/dictionary"
@@ -7,6 +8,7 @@ class Vocabulary
   include Handler
   include Presenter
   include Requester
+  include Handler::Words
 
   def initialize
     @current_language = "en_US"
@@ -33,7 +35,7 @@ class Vocabulary
     until option == "exit"
       case option
       when "search" then search
-      when "add" then puts "add option"
+      when "add" then add
       when "practice" then puts "practice option"
       when "toggle" then toggle
       end
@@ -43,20 +45,13 @@ class Vocabulary
     puts goodbye
   end
 
-  def search
-    word = input_user
-    vocabulary_word(word)
-  end
-
   def start_search(words)
     words.each do |word|
-      vocabulary_word(word)
+      word_data = vocabulary_word(word)
+      word_in_array = format_rows(word_data)
+      print_definition(word_data[:word], word_in_array)
+      @new_vocabulary_words << word_data
     end
-  end
-
-  def toggle
-    language = @current_language
-    @current_language = (language == "en_US" ? "es" : "en_US")
   end
 end
 
