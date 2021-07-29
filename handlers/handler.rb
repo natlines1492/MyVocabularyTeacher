@@ -19,7 +19,7 @@ module Handler
 
     word_in_array = format_rows(word_data)
     print_definition(word_data[:word], word_in_array)
-    @vocabulary_list << word_data
+    @new_vocabulary_words << word_data
   end
 
   def format_rows(word_data)
@@ -33,5 +33,19 @@ module Handler
     end
 
     word_rows
+  end
+
+  def search
+    word = input_user
+    vocabulary_word(word)
+  end
+
+  def add
+    print_new_vocabulary_words
+  end
+
+  def toggle
+    language = @current_language
+    @current_language = (language == "en_US" ? "es" : "en_US")
   end
 end

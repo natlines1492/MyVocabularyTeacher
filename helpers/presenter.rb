@@ -42,4 +42,12 @@ module Presenter
 
     puts table
   end
+
+  def print_new_vocabulary_words
+    table = Terminal::Table.new
+    table.title = "New words learned"
+    table.rows = @new_vocabulary_words.map { |word| [word[:word]] }
+
+    puts table
+  end
 end

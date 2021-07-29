@@ -33,7 +33,7 @@ class Vocabulary
     until option == "exit"
       case option
       when "search" then search
-      when "add" then puts "add option"
+      when "add" then add
       when "practice" then puts "practice option"
       when "toggle" then toggle
       end
@@ -43,20 +43,10 @@ class Vocabulary
     puts goodbye
   end
 
-  def search
-    word = input_user
-    vocabulary_word(word)
-  end
-
   def start_search(words)
     words.each do |word|
       vocabulary_word(word)
     end
-  end
-
-  def toggle
-    language = @current_language
-    @current_language = (language == "en_US" ? "es" : "en_US")
   end
 end
 
