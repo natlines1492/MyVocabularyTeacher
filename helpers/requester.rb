@@ -3,12 +3,12 @@ module Requester
     options = %w[search add practice toggle exit]
     puts options.join(" | ")
     print "> "
-    $stdin.gets.chomp
+    gets.chomp
   end
 
   def input_user
     puts "Word: "
     print "> "
-    $stdin.gets.chomp.strip
+    gets.chomp.strip
   end
 end

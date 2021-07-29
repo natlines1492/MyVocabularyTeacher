@@ -6,17 +6,26 @@ class Vocabulary
   include Presenter
   include Requester
 
-  def initialize(word, language = "en_US")
-    @vocabulary_list = ""
-    @current_language = language
-    @search_word = word
-    @definition_word = nil
+  def initialize
+    @current_language = "en_US"
+    @search_words = []
+    @vocabulary_list = []
+
+    unless ARGV.empty?
+      if ARGV[-1].match?(/english|spanish/i)
+        @current_language = "es" if ARGV[-1].downcase == "spanish"
+        @search_words = ARGV[0..-2]
+      else
+        @search_words = *ARGV
+      end
+    end
+    ARGV.clear
   end
 
   def start
     puts welcome
     puts "language: #{@current_language}"
-    start_search(@current_language, @search_word)
+    start_search(@current_language, @search_words) unless @search_words.empty?
     option = main_menu
     until option == "exit"
       case option
@@ -48,28 +57,30 @@ class Vocabulary
       }
     end
 
-    @definition_word = definition_word
-    pp definition_word
+    @vocabulary_list << { word.to_sym => definition_word }
+    pp @vocabulary_list
   end
 
-  def start_search(language, word)
-    variable = DictionaryService.words(language, word) # "en_US" = language
-    meanings = variable[0][:meanings]
+  def start_search(language, words)
+    words.each do |word|
+      variable = DictionaryService.words(language, word) # "en_US" = language
+      meanings = variable[0][:meanings]
 
-    definition_word = meanings.map do |part_of_speech|
-      {
-        uses: part_of_speech[:partOfSpeech],
-        definitions: part_of_speech[:definitions].map do |definitions|
-          {
-            definition: definitions[:definition],
-            example: definitions[:example]
-          }
-        end
-      }
+      definition_word = meanings.map do |part_of_speech|
+        {
+          uses: part_of_speech[:partOfSpeech],
+          definitions: part_of_speech[:definitions].map do |definitions|
+            {
+              definition: definitions[:definition],
+              example: definitions[:example]
+            }
+          end
+        }
+      end
+
+      @vocabulary_list << { word.to_sym => definition_word }
     end
-
-    @definition_word = definition_word
-    pp definition_word
+    pp @vocabulary_list
   end
 
   def toggle
@@ -78,16 +89,5 @@ class Vocabulary
   end
 end
 
-input_array = ARGV
-word = input_array.first
-language = nil
-language = input_array[-1] if input_array.length > 1
-# puts "language: #{language}"
-# puts "word : #{word}"
-
-if language.nil?
-  vocabulary = Vocabulary.new(word)
-else
-  vocabulary = Vocabulary.new(word, language) unless language.nil?
-end
+vocabulary = Vocabulary.new
 vocabulary.start
