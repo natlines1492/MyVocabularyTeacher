@@ -23,9 +23,10 @@ class Vocabulary
       when "search" then search
       when "add" then puts "add option"
       when "practice" then puts "practice option"
-      when "toggle" then puts "toggle option"
+      when "toggle" then toggle 
       when "exit" then puts "exit option"
       end
+      puts "language: #{@current_language}"
       option = main_menu
     end
   end
@@ -69,6 +70,11 @@ class Vocabulary
 
     @definition_word = definition_word
     pp definition_word
+  end
+
+  def toggle
+    language = @current_language
+    @current_language = (language == "en_US" ? "es" : "en_US")
   end
 end
 
