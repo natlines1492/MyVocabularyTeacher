@@ -18,9 +18,7 @@ module Handler
         word_data[:definitions] << definition
       end
 
-      word_in_array = format_rows(word_data)
-      print_definition(word_data[:word], word_in_array)
-      @new_vocabulary_words << word_data
+      word_data
     end
 
     def format_rows(word_data)

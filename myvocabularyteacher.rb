@@ -47,7 +47,10 @@ class Vocabulary
 
   def start_search(words)
     words.each do |word|
-      vocabulary_word(word)
+      word_data = vocabulary_word(word)
+      word_in_array = format_rows(word_data)
+      print_definition(word_data[:word], word_in_array)
+      @new_vocabulary_words << word_data
     end
   end
 end
