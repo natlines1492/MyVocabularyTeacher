@@ -8,4 +8,12 @@ module Presenter
       "#" * 36
     ]
   end
+
+  def goodbye
+    [
+      "#" * 36,
+      "#    Thank you for prefering us    #",
+      "#" * 36
+    ]
+  end
 end

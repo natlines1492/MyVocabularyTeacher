@@ -32,12 +32,13 @@ class Vocabulary
       when "search" then search
       when "add" then puts "add option"
       when "practice" then puts "practice option"
-      when "toggle" then toggle 
+      when "toggle" then toggle
       when "exit" then puts "exit option"
       end
       puts "language: #{@current_language}"
       option = main_menu
     end
+    puts goodbye
   end
 
   def search
