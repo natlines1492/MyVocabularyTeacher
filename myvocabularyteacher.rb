@@ -54,7 +54,6 @@ class Vocabulary
       @new_vocabulary_words << word_data
     end
   end
-
 end
 
 vocabulary = Vocabulary.new
