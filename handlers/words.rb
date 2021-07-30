@@ -3,7 +3,6 @@ require_relative "../helpers/presenter"
 module Handler
   module Words
     def vocabulary_word(input)
-      print "searching #{input}...\r"
       word = DictionaryService.words(@current_language, input)[0]
       word_data = {}
       word_data[:word] = word[:word]
