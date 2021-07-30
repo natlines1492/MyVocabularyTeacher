@@ -28,8 +28,8 @@ module Handler
     option = practice_menu
     until option == "back"
       case option
-      when "definitions" then puts "definitions"
-      when "examples" then puts "examples"
+      when "definitions" then practice_definitions
+      when "examples" then puts "practice_examples"
       end
       option = add_menu
     end

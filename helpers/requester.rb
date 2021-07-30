@@ -27,8 +27,7 @@ module Requester
   end
 
   def input_user
-    puts "Word: "
-    print "> "
+    print "Please enter the word to be searched: "
     gets.chomp.strip
   end
 end

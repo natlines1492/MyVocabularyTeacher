@@ -53,20 +53,22 @@ module Handler
       word
     end
 
-    def make_question
-      options = []
+    def generate_question(practice_type)
       random_word = random_word_for_game
-      options << random_word
       size = (random_word.size < 5 ? 5 : random_word.size)
+      available_definitions = vocabulary_word(random_word)[:definitions]
+
+      case practice_type
+      when "definitions"
+        question = available_definitions.sample[:definition]
+      when "examples"
+        question = available_definitions.sample[:example]
+        question = available_definitions.sample[:example] while question.nil?
+      end
+      options = [random_word]
       3.times { options << match_options(random_word[0..1], size, random_word) }
 
-      definition = vocabulary_word(random_word)[:definitions].sample[:definition]
-      puts "Select the correct word:"
-      puts definition
-
-      options.shuffle.each_with_index do |option, index|
-        puts "#{index + 1}. #{option}"
-      end
+      { question: question, options: options }
     end
   end
 end
