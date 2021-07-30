@@ -24,6 +24,17 @@ module Handler
     end
   end
 
+  def practice
+    option = practice_menu
+    until option == "back"
+      case option
+      when "definitions" then puts "definitions"
+      when "examples" then puts "examples"
+      end
+      option = add_menu
+    end
+  end
+
   def toggle
     language = @current_language
     @current_language = (language == "en_US" ? "es" : "en_US")

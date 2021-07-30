@@ -36,7 +36,7 @@ class Vocabulary
       case option
       when "search" then search
       when "add" then add
-      when "practice" then puts "practice option"
+      when "practice" then practice
       when "toggle" then toggle
       end
       puts "language: #{@current_language}"
@@ -44,6 +44,8 @@ class Vocabulary
     end
     puts goodbye
   end
+
+  private
 
   def start_search(words)
     words.each do |word|

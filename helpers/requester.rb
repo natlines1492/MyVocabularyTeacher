@@ -9,6 +9,11 @@ module Requester
     input_with_options(options)
   end
 
+  def practice_menu
+    options = %w[definitions examples back]
+    input_with_options(options)
+  end
+
   def input_with_options(options)
     puts options.join(" | ")
     print "> "
