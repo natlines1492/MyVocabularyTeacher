@@ -1,3 +1,8 @@
+require "csv"
+require "httparty"
+require "minitest"
+require "random-word"
+require "terminal-table"
 require_relative "./handlers/handler"
 require_relative "./handlers/words"
 require_relative "./helpers/presenter"

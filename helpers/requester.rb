@@ -31,14 +31,19 @@ module Requester
     gets.chomp.strip
   end
 
-  def ask_question(questions)
-    questions.each do |question|
-      puts question[:question]
-      question[:options].shuffle.each_with_index do |option, index|
-        puts "#{index + 1}. #{option}"
-      end
-      print "> "
-      gets.chomp.strip
+  def ask_question(question)
+    puts question[:question]
+    shuffled_options = question[:options].shuffle.each_with_index.map do |option, index|
+      "#{index + 1}. #{option}"
     end
+    puts shuffled_options
+    print "> "
+    input = gets.chomp.strip
+    until %w[1 2 3 4].include?(input)
+      puts "Invalid option"
+      print "> "
+      input = gets.chomp.strip
+    end
+    shuffled_options.find { |option| option.start_with? input }
   end
 end

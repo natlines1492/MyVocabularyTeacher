@@ -49,4 +49,15 @@ module Presenter
 
     puts table
   end
+
+  def print_result(correct_answer, player_answer)
+    result = player_answer.match? correct_answer
+    if result
+      puts "#{player_answer}... Correct!"
+    else
+      puts "#{player_answer}... Incorrect!"
+      puts "The correct answer was: #{correct_answer}"
+    end
+    result
+  end
 end

@@ -27,16 +27,29 @@ module Handler
   def practice
     option = practice_menu
     until option == "back"
-      case option
-      when "definitions" then practice_definitions
-      when "examples" then puts "practice_examples"
-      end
-      option = add_menu
+      start_practice(option)
+      option = practice_menu
     end
   end
 
   def toggle
     language = @current_language
     @current_language = (language == "en_US" ? "es" : "en_US")
+  end
+
+  def start_practice(practice_type)
+    print "loading questions...\r"
+    questions = generate_questions(practice_type)
+    puts "Please select each correct answer by it's number:"
+
+    score = 0
+    questions.each do |question|
+      answer = ask_question(question)
+      result = print_result(question[:correct_answer], answer)
+      score += 10 if result
+    end
+
+    puts "Well done! Your score is #{score}" if score.positive?
+    puts "No problem, you can try again. Your score is 0" if score.zero?
   end
 end
