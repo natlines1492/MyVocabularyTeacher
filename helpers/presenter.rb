@@ -27,10 +27,9 @@ module Presenter
           t.add_separator
           t.add_row(row)
         else
-          text = row[1].scan(/(.{1,60})(?: |$)/).flatten
-          row_multiline_height = text.length - 1
+          text = row[1].to_s.scan(/(.{1,60})(?: |$)/).flatten
           header = [row[0]]
-          row_multiline_height.times { header << "\n" }
+          (text.length - 1).times { header << "\n" }
           multiline_row = header.zip(text)
 
           multiline_row.each do |line_row|

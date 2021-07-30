@@ -3,6 +3,7 @@ require_relative "../helpers/presenter"
 module Handler
   def search
     word = input_user
+    print "searching #{word}...\r"
     word_data = vocabulary_word(word)
     word_in_array = format_rows(word_data)
     print_definition(word_data[:word], word_in_array)
