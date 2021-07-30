@@ -30,4 +30,15 @@ module Requester
     print "Please enter the word to be searched: "
     gets.chomp.strip
   end
+
+  def ask_question(questions)
+    questions.each do |question|
+      puts question[:question]
+      question[:options].shuffle.each_with_index do |option, index|
+        puts "#{index + 1}. #{option}"
+      end
+      print "> "
+      gets.chomp.strip
+    end
+  end
 end
