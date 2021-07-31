@@ -15,7 +15,9 @@ class Store
     end
   end
 
-  def self.save_json(name, score) #Theres another methods to ask the name
+  # Theres another methods to ask the name
+
+  def self.save_new_words_practice(name, score)
     # results = { name: name, score: score }
     # File.open("saved_results.json","w") do |file|
     #   file.write results.to_json

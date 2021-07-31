@@ -51,6 +51,9 @@ module Handler
 
     puts "Well done! Your score is #{score}" if score.positive?
     puts "No problem, you can try again. Your score is 0" if score.zero?
+
+    puts "Do you want to save the new words in your vocabulary?"
+    puts "New words saved!" if ask_save_menu == "yes"
   end
 
   def save_vocabulary(vocabulary)
