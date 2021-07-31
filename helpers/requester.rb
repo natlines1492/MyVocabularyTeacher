@@ -14,6 +14,11 @@ module Requester
     input_with_options(options)
   end
 
+  def ask_save_menu
+    options = %w[yes no]
+    input_with_options(options)
+  end
+
   def input_with_options(options)
     puts options.join(" | ")
     print "> "
