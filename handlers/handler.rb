@@ -24,44 +24,33 @@ module Handler
     end
   end
 
+  def practice
+    option = practice_menu
+    until option == "back"
+      start_practice(option)
+      option = practice_menu
+    end
+  end
+
   def toggle
     language = @current_language
     @current_language = (language == "en_US" ? "es" : "en_US")
   end
 
-  def random_word_for_game
-    if @vocabulary_list.length <= 5
-      RandomWord.adjs.next.split("_")[0]
-    else
-      @vocabulary_list.sample[:word]
+  def start_practice(practice_type)
+    print "loading questions...\r"
+    questions = generate_questions(practice_type)
+    puts "Please select each correct answer by it's number:"
+
+    score = 0
+    questions.each do |question|
+      answer = ask_question(question)
+      result = print_result(question[:correct_answer], answer)
+      score += 10 if result
     end
-  end
 
-  def make_question
-    options = []
-    random_word = random_word_for_game
-    options << random_word
-    size = random_word.size < 5 ? 5 : random_word.size
-    3.times { options << match_options(random_word[0..1], size, random_word) }
-
-    definition = Vocabulary.new.vocabulary_word(random_word)[:definitions].sample[:definition]
-    puts "Select the correct word: #{definition}"
-
-    options.shuffle.each_with_index do |option, index|
-      puts "#{index + 1}. #{option}"
-    end
-  end
-
-  def match_options(char_option, size, word_exclude)
-    word = ""
-    until word.start_with?(char_option) && word.size <= size && word != word_exclude
-      begin
-        word = RandomWord.adjs.next
-      rescue NoMethodError
-        retry
-      end
-    end
-    word
+    puts "Well done! Your score is #{score}" if score.positive?
+    puts "No problem, you can try again. Your score is 0" if score.zero?
   end
 
   def save_vocabulary(vocabulary)

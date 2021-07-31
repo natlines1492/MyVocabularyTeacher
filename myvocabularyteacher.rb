@@ -1,3 +1,8 @@
+require "csv"
+require "httparty"
+require "minitest"
+require "random-word"
+require "terminal-table"
 require_relative "./handlers/handler"
 require_relative "./handlers/words"
 require_relative "./helpers/presenter"
@@ -36,7 +41,7 @@ class Vocabulary
       case option
       when "search" then search
       when "add" then add
-      when "practice" then puts "practice option"
+      when "practice" then practice
       when "toggle" then toggle
       end
       puts "language: #{@current_language}"
@@ -44,6 +49,8 @@ class Vocabulary
     end
     puts goodbye
   end
+
+  private
 
   def start_search(words)
     words.each do |word|
@@ -54,7 +61,6 @@ class Vocabulary
       @new_vocabulary_words << word_data
     end
   end
-
 end
 
 vocabulary = Vocabulary.new
