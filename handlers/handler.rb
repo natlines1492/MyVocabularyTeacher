@@ -1,4 +1,5 @@
 require_relative "../helpers/presenter"
+require_relative "../services/store"
 
 module Handler
   def search
@@ -7,7 +8,7 @@ module Handler
     word_data = vocabulary_word(word)
     word_in_array = format_rows(word_data)
     print_definition(word_data[:word], word_in_array)
-    @new_vocabulary_words << word_data
+    @new_vocabulary_words << word_data unless @vocabulary_list.include? word_data
   end
 
   def add
@@ -17,7 +18,7 @@ module Handler
     option = add_menu
     until option == "back"
       case option
-      when "save" then puts "save"
+      when "save" then save_vocabulary(@filename)
       when "delete" then puts "delete"
       end
       option = add_menu
@@ -53,9 +54,17 @@ module Handler
     puts "No problem, you can try again. Your score is 0" if score.zero?
   end
 
-  def save_vocabulary(vocabulary)
-    first_definitions = nth_group(vocabulary, 2)
-    Store.save(first_definitions, filename)
+  def update_vocabulary_list
+    @new_vocabulary_words.each { |word| @vocabulary_list << word }
+    @new_vocabulary_words.clear
+    @vocabulary_list
+  end
+
+  def save_vocabulary(_filename)
+    # first_definitions = nth_group(vocabulary, 2)
+    vocabulary_list = update_vocabulary_list
+    formatted_vocabulary = vocabulary_list.map { |vocabulary| format_rows(vocabulary) }
+    Store.save_csv(formatted_vocabulary)
   end
 
   def nth_group(arr, num_elements)
