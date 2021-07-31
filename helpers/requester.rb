@@ -10,7 +10,7 @@ module Requester
   end
 
   def practice_menu
-    options = %w[definitions examples back]
+    options = %w[start back]
     input_with_options(options)
   end
 
@@ -22,11 +22,11 @@ module Requester
   def input_with_options(options)
     puts options.join(" | ")
     print "> "
-    input = gets.chomp
+    input = gets.chomp.strip
     until options.include?(input)
       puts "Invalid option"
       print "> "
-      input = gets.chomp
+      input = gets.chomp.strip
     end
     input
   end

@@ -19,13 +19,14 @@ class Vocabulary
     @search_words = []
     @vocabulary_list = []
     @new_vocabulary_words = []
+    @dictionary = Scrapper::Dictionary.new
 
     unless ARGV.empty?
       if ARGV[-1].match?(/english|spanish/i)
         @current_language = "es" if ARGV[-1].downcase == "spanish"
         @search_words = ARGV[0..-2]
       else
-        @search_words = *ARGV
+        @search_words = ARGV.select { |word| word.match?(/\w+/) }
       end
     end
     ARGV.clear
@@ -54,7 +55,9 @@ class Vocabulary
   def start_search(words)
     words.each do |word|
       print "searching #{word}...\r"
-      word_data = vocabulary_word(word)
+      word_data = @dictionary.look_up(word)
+      next unless word_data
+
       word_in_array = format_rows(word_data)
       print_definition(word_data[:word], word_in_array)
       @new_vocabulary_words << word_data
