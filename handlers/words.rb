@@ -1,4 +1,5 @@
 require_relative "../helpers/presenter"
+require_relative "../lists_practice/english_list_practice"
 
 module Handler
   module Words
@@ -34,28 +35,27 @@ module Handler
     end
 
     def random_words_for_game
-      # random_words = []
-      # vocabulary_sample = proc { random_words << @new_vocabulary_words.sample[:word] }
-      # random_sample = proc { random_words << RandomWord.nouns.next.split("_")[0] }
+      random_words = []
+      vocabulary_sample = proc { random_words << @new_vocabulary_words.sample[:word] }
+      random_sample = proc { random_words << ListsPractice::ENGLISH_WORDS.sample }
 
-      # words_in_vocabulary = @new_vocabulary_words.length
-      # if words_in_vocabulary >= 5
-      #   5.times(&vocabulary_sample)
-      #   5.times(&random_sample)
-      # else
-      #   new_words_to_add = 10 - words_in_vocabulary
-      #   words_in_vocabulary.times(&vocabulary_sample)
-      #   new_words_to_add.times(&random_sample)
-      # end
-      # random_words
-      %w[run taste do have test pull push grab take give]
+      words_in_vocabulary = @new_vocabulary_words.length
+      if words_in_vocabulary >= 5
+        5.times(&vocabulary_sample)
+        5.times(&random_sample)
+      else
+        new_words_to_add = 10 - words_in_vocabulary
+        words_in_vocabulary.times(&vocabulary_sample)
+        new_words_to_add.times(&random_sample)
+      end
+      random_words
     end
 
     def match_options(char_option, size, word_exclude)
       word = ""
       until word.start_with?(char_option) && word.size <= size && word != word_exclude
         begin
-          word = RandomWord.adjs.next
+          word = ListsPractice::ENGLISH_WORDS.sample
         rescue NoMethodError
           retry
         end
