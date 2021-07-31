@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ModuleLength
 module ListsPractice
   ENGLISH_WORDS =
     %w[
@@ -3002,3 +3003,4 @@ module ListsPractice
       zone
     ].freeze
 end
+# rubocop:enable Metrics/ModuleLength
