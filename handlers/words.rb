@@ -69,6 +69,7 @@ module Handler
 
       random_words.each do |word|
         size = (word.size < 5 ? 5 : word.size)
+        word_data = vocabulary_word(word)
         available_definitions = vocabulary_word(word)[:definitions]
 
         case practice_type
@@ -82,6 +83,7 @@ module Handler
         3.times { options << match_options(word[0..1], size, word) }
 
         questions << { question: question, options: options, correct_answer: word }
+        @new_vocabulary_words << word_data unless @vocabulary_list.include? word_data
       end
       questions
     end
