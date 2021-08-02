@@ -39,7 +39,8 @@ module Presenter
   def print_new_vocabulary_words
     table = Terminal::Table.new
     table.title = "New words learned"
-    table.rows = @new_vocabulary_words.map { |word| [word[:word]] }
+    table.headings = %w[id word]
+    table.rows = @new_vocabulary_words.map.with_index { |word, idx| [(idx + 1).to_s, word[:word]] }
 
     puts table
   end

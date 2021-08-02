@@ -14,7 +14,11 @@ module Handler
 
     def random_words_for_game
       random_words = []
-      vocabulary_sample = proc { random_words << @vocabulary_list.sample[:word] }
+      vocabulary_sample = proc do
+        selected = @vocabulary_list.shuffle.pop
+        @vocabulary_list.delete(selected)
+        random_words << selected[:word]
+      end
       random_sample = proc { random_words << ListsPractice::ENGLISH_WORDS.sample }
 
       words_in_vocabulary = @vocabulary_list.length
@@ -40,18 +44,19 @@ module Handler
     end
 
     def generate_questions
-      random_words = random_words_for_game
+      random_words = random_words_for_game.shuffle
       questions = []
 
       random_words.each do |word|
         size = (word.size < 5 ? 5 : word.size)
         word_data = @dictionary.look_up(word)
+        old_word = @vocabulary_list.include?(word_data)
 
         question = word_data[:definition]
         options = [word]
         3.times { options << match_options(word[0..1], size, word) }
 
-        questions << { question: question, options: options, correct_answer: word }
+        questions << { question: question, options: options, correct_answer: word, data: word_data, new: !old_word }
       end
       questions
     end

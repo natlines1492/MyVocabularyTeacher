@@ -13,7 +13,6 @@ module Scrapper
       return puts "No dictionary entry found for '#{word}'" unless definition_section
 
       description_element = definition_section.at_css("li")
-
       node_definition = description_element.at_css(".rh_def")
       use_definition_example(word, node_definition)
     end
@@ -21,10 +20,12 @@ module Scrapper
     private
 
     def use_definition_example(word, node_definition)
-      node_example = node_definition.at_css(".rh_ex")
-      example_element = node_example.children.find { |node| node.name == "text" } unless node_example.nil?
-      example = (example_element.nil? ? nil : example_element.content)
       definition = evaluate_definition(node_definition)
+
+      node_example = node_definition.at_css(".rh_ex")
+      example_element = node_example.children.find { |node| node.name == "text" } if node_example
+      example = (example_element.nil? ? nil : example_element.content)
+
       { word: word, definition: definition, example: example }
     end
 
@@ -33,13 +34,10 @@ module Scrapper
       if ul_condition
         definition = ul_condition.children.find { |node| node.name == "text" }.content
       else
-        variable = node_definition.children.find { |node| node.name == "text" }
-        if variable && variable.text != "\r\n"
-          definition = variable.content
-        else
-          src_condition = node_definition.at_css(".rh_sc")
-          definition = src_condition.content
-        end
+        simple_def = node_definition.children.find { |node| node.name == "text" }
+        simple_def_content = simple_def.content if simple_def.content != "\r\n"
+
+        definition = simple_def_content || node_definition.at_css(".rh_sc").content
       end
       definition
     end

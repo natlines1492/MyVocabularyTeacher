@@ -1,6 +1,6 @@
 module Requester
   def main_menu
-    options = %w[search add practice toggle exit]
+    options = %w[search add practice exit]
     input_with_options(options)
   end
 
@@ -32,8 +32,20 @@ module Requester
   end
 
   def input_user
-    print "Please enter the word to be searched: "
-    gets.chomp.strip
+    puts "Please enter the word or words to be searched:"
+    gets.chomp.split
+  end
+
+  def input_for_deletion
+    puts "Please enter the id of the word or words to delete from the list:"
+    num_of_new_words = @new_vocabulary_words.size
+    range_by_size = ("1"..num_of_new_words.to_s).to_a
+    input = gets.chomp.split
+    until input.difference(range_by_size).size.zero?
+      puts "Only select by id separated by blank spaces"
+      input = gets.chomp.split
+    end
+    input
   end
 
   def ask_question(question)
