@@ -3000,7 +3000,10 @@ module ListsPractice
       yours
       yourself
       youth
+      zebra
+      zombie
       zone
+      zoo
     ].freeze
 end
 # rubocop:enable Metrics/ModuleLength
