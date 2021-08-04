@@ -42,7 +42,7 @@ class Vocabulary
     until option == "exit"
       case option
       when "search" then search
-      when "add" then add
+      when "manage" then manage
       when "practice" then practice
         # when "toggle" then toggle
       end

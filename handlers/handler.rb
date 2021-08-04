@@ -18,11 +18,11 @@ module Handler
     end
   end
 
-  def add
+  def manage
     return puts "Nothing to add. Try searching some words" if @new_vocabulary_words.empty?
 
     print_new_vocabulary_words
-    option = add_menu
+    option = manage_menu
     until option == "back"
       case option
       when "save" then save_vocabulary(@filename)

@@ -24,7 +24,7 @@ Or pass one or more words to look for definitions right from the start:
 The app will prompt for an option from the main menu:
 
 - `search`: search for the definition of a new word
-- `add`: add new words to the vocab file (saved as a CSV)
+- `manage`: offers the possibility to add new words to the vocab file (saved as a CSV)
 - `practice`: start a new game that will bring 5 random words from vocab file and add 5 new random words
 - `exit`: close the app
 
@@ -35,11 +35,11 @@ The search result will always bring only the most relevant definition for each u
 
 This command will make a request to the dictionary and show a table for each result
 
-## `add`
+## `manage`
 
 This command will display a table with all the words learned that hasn't been saved yet and will prompt a menu to manage the list of words
 
-The app will prompt for an option from the add menu:
+The app will prompt for an option from the manage menu:
 
 - `save`: create new vocab file if doesn't exist or update an existing one
 - `delete`: remove a word or words from the list by their id
