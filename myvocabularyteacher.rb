@@ -38,23 +38,27 @@ class Vocabulary
     # puts "language: #{@current_language}"
     start_search(@search_words) unless @search_words.empty?
     option = main_menu
+    puts "\n"
     until option == "exit"
       case option
       when "search" then search
       when "add" then add
       when "practice" then practice
-      when "toggle" then toggle
+        # when "toggle" then toggle
       end
       # puts "language: #{@current_language}"
       option = main_menu
+      puts "\n"
     end
     puts goodbye
+    puts "\n"
   end
 
   private
 
   def start_search(words)
     words.each do |word|
+      puts "\n"
       print "searching #{word}...\r"
       word_data = @dictionary.look_up(word)
       next unless word_data

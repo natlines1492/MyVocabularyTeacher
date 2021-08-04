@@ -3,8 +3,11 @@ require_relative "../services/store"
 
 module Handler
   def search
-    words = input_user
-    words.each do |word|
+    input = input_user
+    return if input[0] == "--back" && input[1].nil?
+
+    input.each do |word|
+      puts "\n"
       print "searching #{word}...\r"
       word_data = @dictionary.look_up(word)
       next unless word_data
@@ -32,7 +35,9 @@ module Handler
   def practice
     option = practice_menu
     until option == "back"
+      puts "\n"
       start_practice
+      puts "\n"
       option = practice_menu
     end
   end
@@ -57,6 +62,7 @@ module Handler
 
     puts "Well done! Your score is #{score}" if score.positive?
     puts "No problem, you can try again. Your score is 0" if score.zero?
+    puts "\n"
     puts "Do you want to save the new words in your vocabulary?"
     save_confirmation = ask_save_menu
     save_after_practice(questions) if save_confirmation == "yes"

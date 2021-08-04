@@ -2,6 +2,7 @@ require "terminal-table"
 
 module Presenter
   def welcome
+    puts "\n"
     [
       "#" * 36,
       "# Welcome to My Vocabulary Teacher #",
