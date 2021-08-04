@@ -20,21 +20,15 @@ module Presenter
   def print_definition(title, word_data)
     table = Terminal::Table.new do |t|
       t.title = title.capitalize
-      t.add_row(word_data[1])
 
-      word_data[2..-1].each do |row|
-        if row[0] == "uses"
-          t.add_separator
-          t.add_row(row)
-        else
-          text = row[1].to_s.scan(/(.{1,60})(?: |$)/).flatten
-          header = [row[0]]
-          (text.length - 1).times { header << "\n" }
-          multiline_row = header.zip(text)
+      word_data[1..-1].each do |row|
+        text = row[1].to_s.scan(/(.{1,60})(?: |$)/).flatten
+        header = [row[0]]
+        (text.length - 1).times { header << "\n" }
+        multiline_row = header.zip(text)
 
-          multiline_row.each do |line_row|
-            t.add_row(line_row)
-          end
+        multiline_row.each do |line_row|
+          t.add_row(line_row)
         end
       end
     end
@@ -45,7 +39,8 @@ module Presenter
   def print_new_vocabulary_words
     table = Terminal::Table.new
     table.title = "New words learned"
-    table.rows = @new_vocabulary_words.map { |word| [word[:word]] }
+    table.headings = %w[id word]
+    table.rows = @new_vocabulary_words.map.with_index { |word, idx| [(idx + 1).to_s, word[:word]] }
 
     puts table
   end
