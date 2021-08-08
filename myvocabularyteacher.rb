@@ -15,27 +15,27 @@ class Vocabulary
   include Handler::Words
 
   def initialize
-    # @current_language = "en_US"
+    @current_language = "en_US"
     @search_words = ARGV.select { |word| word.match?(/\w+/) }
     @vocabulary_list = []
     @new_vocabulary_words = []
     @dictionary = Scrapper::Dictionary.new
     @filename = nil
 
-    # unless ARGV.empty?
-    #   if ARGV[-1].match?(/english|spanish/i)
-    #     @current_language = "es" if ARGV[-1].casecmp?("spanish")
-    #     @search_words = ARGV[0..-2]
-    #   else
-    #     @search_words = ARGV.select { |word| word.match?(/\w+/) }
-    #   end
-    # end
+    unless ARGV.empty?
+      if ARGV[-1].match?(/english|spanish/i)
+        @current_language = "es" if ARGV[-1].casecmp?("spanish")
+        @search_words = ARGV[0..-2]
+      else
+        @search_words = ARGV.select { |word| word.match?(/\w+/) }
+      end
+    end
     ARGV.clear
   end
 
   def start
     puts welcome
-    # puts "language: #{@current_language}"
+    puts "language: #{@current_language}"
     start_search(@search_words) unless @search_words.empty?
     option = main_menu
     puts "\n"
@@ -44,9 +44,9 @@ class Vocabulary
       when "search" then search
       when "add" then add
       when "practice" then practice
-        # when "toggle" then toggle
+        when "toggle" then toggle
       end
-      # puts "language: #{@current_language}"
+      puts "language: #{@current_language}"
       option = main_menu
       puts "\n"
     end

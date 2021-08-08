@@ -19,7 +19,10 @@ module Handler
         @vocabulary_list.delete(selected)
         random_words << selected[:word]
       end
-      random_sample = proc { random_words << ListsPractice::ENGLISH_WORDS.sample }
+      random_sample = proc { 
+        random_word = ListsPractice::ENGLISH_WORDS.sample
+        random_words << random_word unless @vocabulary_list.include? random_word 
+      }
 
       words_in_vocabulary = @vocabulary_list.length
       if words_in_vocabulary >= 5
@@ -58,7 +61,8 @@ module Handler
 
         questions << { question: question, options: options, correct_answer: word, data: word_data, new: !old_word }
       end
-      questions
+      pp @vocabulary_list
+      pp questions
     end
   end
 end
