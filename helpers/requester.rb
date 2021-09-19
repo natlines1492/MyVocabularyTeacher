@@ -1,11 +1,11 @@
 module Requester
   def main_menu
     puts "\n"
-    options = %w[search add practice exit]
+    options = %w[search manage practice exit]
     input_with_options(options)
   end
 
-  def add_menu
+  def manage_menu
     puts "\n"
     options = %w[save delete back]
     input_with_options(options)

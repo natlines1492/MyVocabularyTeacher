@@ -35,9 +35,9 @@ module Handler
       random_words
     end
 
-    def match_options(char_option, size, word_exclude)
+    def match_options(char_option, word_exclude, options)
       word = ""
-      until word.start_with?(char_option) && word.size <= (size + 2) && word != word_exclude
+      until word.start_with?(char_option) && word != word_exclude && !options.include?(word)
         word = ListsPractice::ENGLISH_WORDS.sample
       end
       word
@@ -48,13 +48,12 @@ module Handler
       questions = []
 
       random_words.each do |word|
-        size = (word.size < 5 ? 5 : word.size)
         word_data = @dictionary.look_up(word)
         old_word = @vocabulary_list.include?(word_data)
 
         question = word_data[:definition]
         options = [word]
-        3.times { options << match_options(word[0..1], size, word) }
+        3.times { options << match_options(word[0], word, options) }
 
         questions << { question: question, options: options, correct_answer: word, data: word_data, new: !old_word }
       end
